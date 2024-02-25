@@ -17,8 +17,7 @@ public class DemoApplication {
 
 	public static void main(String[] args) throws IOException {
 
-		FileInputStream serviceAccount = new FileInputStream("D:\\work place\\CamelRace server" +
-				"\\demo\\src\\main\\java\\com\\example\\demo\\serviceAccount.json");
+		FileInputStream serviceAccount = new FileInputStream("src/main/resources/serviceAccount.json");
 
 		FirebaseOptions options = new FirebaseOptions.Builder()
 				.setCredentials(GoogleCredentials.fromStream(serviceAccount))
