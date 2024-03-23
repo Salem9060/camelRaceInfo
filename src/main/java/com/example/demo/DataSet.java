@@ -16,7 +16,7 @@ public class DataSet {
     private double longitude;
     private double latitude;
 
-    private int uTCTimeStamp;
+    private Timestamp uTCTimeStamp;
     private int satellite;
 
     public double getHeartBeatRate() {
@@ -83,11 +83,11 @@ public class DataSet {
         this.latitude = latitude;
     }
 
-    public int getuTCTimeStamp() {
+    public Timestamp getuTCTimeStamp() {
         return uTCTimeStamp;
     }
 
-    public void setuTCTimeStamp(int uTCTimeStamp) {
+    public void setuTCTimeStamp(Timestamp uTCTimeStamp) {
         this.uTCTimeStamp = uTCTimeStamp;
     }
 }

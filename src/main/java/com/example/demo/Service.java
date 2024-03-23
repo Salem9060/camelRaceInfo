@@ -28,22 +28,38 @@ import java.util.concurrent.ExecutionException;
 public class Service {
 
     String checker = "";
+    int documentManualID = 0;
     public String createCamelRace(DataSet camelRaceModel) throws ExecutionException, InterruptedException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
+//
+////        ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection("Camelracing").document(camelRaceModel.toString()).set(camelRaceModel);
+////        return collectionsApiFuture.get().getUpdateTime().toString();
+//
+////         Add the camel race model to the "camelRacing" collection without specifying a document ID
+//
+//        CollectionReference camelRacingCollection = dbFirestore.collection("CamelInfo");
+//        System.out.println("data : " + camelRaceModel);
+//        ApiFuture<DocumentReference> apiFuture = camelRacingCollection.add(camelRaceModel);
+//
+//        // Retrieve the auto-generated document ID
+////        DocumentReference documentReference = apiFuture.get();
+////        String documentId = documentReference.getId();
+//
+//        documentManualID = documentManualID + 1;
+//        String documentId = String.valueOf(documentManualID);
+//        return documentId;
 
-//        ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection("Camelracing").document(camelRaceModel.toString()).set(camelRaceModel);
-//        return collectionsApiFuture.get().getUpdateTime().toString();
 
-//         Add the camel race model to the "camelRacing" collection without specifying a document ID
 
-        CollectionReference camelRacingCollection = dbFirestore.collection("CamelInfo");
-        System.out.println("data : " + camelRaceModel);
-        ApiFuture<DocumentReference> apiFuture = camelRacingCollection.add(camelRaceModel);
+        documentManualID = documentManualID + 1;
+        String documentId = String.valueOf(documentManualID);
 
-        // Retrieve the auto-generated document ID
-        DocumentReference documentReference = apiFuture.get();
-        String documentId = documentReference.getId();
+        // Add the camel race model to the "camelRacing" collection with the specified document ID
+        DocumentReference documentReference = dbFirestore.collection("CamelInfo").document(documentId);
+        ApiFuture<WriteResult> apiFuture = documentReference.set(camelRaceModel);
 
+        System.out.println(documentId);
+        // Return the document ID
         return documentId;
     }
 
@@ -104,7 +120,8 @@ public class Service {
                         sensorData.setSatellite(Integer.parseInt(value));
                         break;
                     case "Tstamp":
-                        sensorData.setuTCTimeStamp(Integer.parseInt(value));
+                        Timestamp currTime = currentTimeAndDate(value);
+                        sensorData.setuTCTimeStamp(currTime);
                         break;
                     case "lon":
                         sensorData.setLongitude(Double.parseDouble(value));
@@ -128,26 +145,24 @@ public class Service {
 
         return sensorData;
     }
-//
-//    public Timestamp currentTimeAndDate(String value){
-//        LocalTime timeString = timeOfJockey(value);
-//
-//        String timeString1 = timeString.toString();
-//        // Get current date
-//        LocalDate currentDate = LocalDate.now();
-//
-//        // Parse time string to LocalTime
-//        LocalTime time = LocalTime.parse(timeString1, DateTimeFormatter.ofPattern("HH:mm:ss"));
-//
-//        // Merge date and time to create a LocalDateTime
-//        LocalDateTime localDateTime = LocalDateTime.of(currentDate, time);
-//
-//        // Convert LocalDateTime to Timestamp
-//        Timestamp timestamp = Timestamp.valueOf(localDateTime);
-//
-//        return timestamp;
-//    }
-//
+
+    public Timestamp currentTimeAndDate(String value){
+
+        // Get current date
+        LocalDate currentDate = LocalDate.now();
+
+        // Parse time string to LocalTime
+        LocalTime time = LocalTime.parse(value, DateTimeFormatter.ofPattern("H:m:s"));
+
+        // Merge date and time to create a LocalDateTime
+        LocalDateTime localDateTime = LocalDateTime.of(currentDate, time);
+
+        // Convert LocalDateTime to Timestamp
+        Timestamp timestamp = Timestamp.valueOf(localDateTime);
+
+        return timestamp;
+    }
+
 //    public static LocalTime timeOfJockey(String timeString){
 //
 //        int hours = 0;
