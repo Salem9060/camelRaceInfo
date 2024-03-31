@@ -8,6 +8,7 @@ import java.time.LocalTime;
 public class DataSet {
 
 
+    private int id;
     private double heartBeatRate;
     private double bloodOxygenConcentration;
     private int signalStrength;
@@ -33,6 +34,14 @@ public class DataSet {
 
     public void setBloodOxygenConcentration(double bloodOxygenConcentration) {
         this.bloodOxygenConcentration = bloodOxygenConcentration;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getSignalStrength() {

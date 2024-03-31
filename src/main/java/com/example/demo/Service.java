@@ -52,6 +52,7 @@ public class Service {
 
 
         documentManualID = documentManualID + 1;
+        camelRaceModel.setId(documentManualID);
         String documentId = String.valueOf(documentManualID);
 
         // Add the camel race model to the "camelRacing" collection with the specified document ID

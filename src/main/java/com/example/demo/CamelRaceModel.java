@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 public class CamelRaceModel {
 
+    private int ID;
     private double heartBeatRate;
     private double bloodOxygenConcentration;
     private double temperature;
@@ -107,6 +108,14 @@ public class CamelRaceModel {
 
     public int getUniqueIdentifier() {
         return uniqueIdentifier;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public void setUniqueIdentifier(int uniqueIdentifier) {
