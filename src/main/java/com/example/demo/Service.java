@@ -65,7 +65,7 @@ public class Service {
     }
 
     public ResponseEntity<?> myData() throws IOException, JSONException {
-        String url = "http://demo.njoka.net/izooh/2024-03-izooh.txt";
+        String url = "http://demo.njoka.net/izooh/2024-04-izooh.txt";
         HttpClient httpClient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet(url);
 
